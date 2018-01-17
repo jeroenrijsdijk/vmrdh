@@ -1,5 +1,17 @@
 # OmniTRANS Job for 'OT_rtd176_2'
 # Created 1-10-2007 17:01:01
+# toedeling waarbij skims worden bewaard
+#
+#
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# LET OP: voor OV is dit script getest, voor auto, fiets nog niet
+# Auto: gaat met name of Cost, Afstand, Tijd de juiste cijfers zijn!
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#
+#
+#
+#
+#
 # =========================================================================================
   writeln "Inlezen parameter bestanden..."
 # =========================================================================================
