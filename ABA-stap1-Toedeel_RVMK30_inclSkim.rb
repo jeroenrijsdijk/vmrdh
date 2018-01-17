@@ -15,39 +15,39 @@ toedelenAutoRdAon	= false
 toedelenOV		= true
 toedelenFiets		= false
 
-aantalThreads	= 11	# voorkeur Rotterdam is 4 (ivm rekenen op rekenserver met meerdere gebruikers tegelijk)
+aantalThreads	= 8	#nr of threads while 
 
 if toedelenVracht
-    writeln "   * vrachtautoverkeer"
-  for t in [1,2,3] 
-   for m in [31,32]
-    traffic 						= OtTraffic.new
-    traffic.odMatrix 				= [Totaal,m,t,Usercat]
-    traffic.network					= [Vracht,t]
-    traffic.load 					= [Totaal,m,t,Usercat,Aon,1] 
-    traffic.routeFactors 			= [VrachtCostAfstand,VrachtCostTijd,0,0]
-	traffic.numberOfThreads			= aantalThreads
-    traffic.execute
-   end
-   
-    writeln "   * vrachtloads bewerken"
-    network = OtNetwork.new
-    network.updateResults([Totaal,Middelzwaar,t,Usercat,Aon,1],[Totaal,Zwaar,t,Usercat,Aon,1],[Totaal,Vracht,t,Usercat,Aon,1],1.0,1.0)
-    network.copyLoad([Totaal,Vracht,t,Usercat,Aon,1],[Totaal,Vracht,t,Usercat,Pae,1],2.0)
-  end
-end
+	writeln "   * vrachtautoverkeer"
+	for t in [1,2,3] 
+		for m in [31,32]
+			traffic 						= OtTraffic.new
+			traffic.odMatrix 				= [Totaal,m,t,Usercat]
+			traffic.network					= [Vracht,t]
+			traffic.load 					= [Totaal,m,t,Usercat,Aon,1] 
+			traffic.routeFactors 			= [VrachtCostAfstand,VrachtCostTijd,0,0]
+			traffic.numberOfThreads			= aantalThreads
+			traffic.execute
+		end
+
+		writeln "   * vrachtloads bewerken"
+		network = OtNetwork.new
+		network.updateResults([Totaal,Middelzwaar,t,Usercat,Aon,1],[Totaal,Zwaar,t,Usercat,Aon,1],[Totaal,Vracht,t,Usercat,Aon,1],1.0,1.0)
+		network.copyLoad([Totaal,Vracht,t,Usercat,Aon,1],[Totaal,Vracht,t,Usercat,Pae,1],2.0)
+	end
+end #if
 
 if toedelenVracht_etm
-    writeln "   * vrachtautoverkeer"
-   for m in [31,32]
-    traffic 						= OtTraffic.new
-    traffic.odMatrix 				= [Totaal,m,Etmaal,Usercat]
-    traffic.network					= [Vracht,Restdag]
-    traffic.load 					= [Totaal,m,Etmaal,Usercat,Aon,1] 
-    traffic.routeFactors 			= [VrachtCostAfstand,VrachtCostTijd,0,0]
-	traffic.numberOfThreads			= aantalThreads
-    traffic.execute
-   end
+	writeln "   * vrachtautoverkeer"
+	for m in [31,32]
+		traffic 				= OtTraffic.new
+		traffic.odMatrix 			= [Totaal,m,Etmaal,Usercat]
+		traffic.network				= [Vracht,Restdag]
+		traffic.load 				= [Totaal,m,Etmaal,Usercat,Aon,1] 
+		traffic.routeFactors 			= [VrachtCostAfstand,VrachtCostTijd,0,0]
+		traffic.numberOfThreads			= aantalThreads
+		traffic.execute
+	end
 end
 
 
@@ -69,12 +69,12 @@ if toedelenAutoSpits
        [[40,41,64,66],[2.0,4.0]], \
        [[51,67],[4.0,4.0]], \
        [[52,53,55..58],[0.0,4.0]]]
-  traffic.network					= [Auto,t]
+  traffic.network			= [Auto,t]
   traffic.routeFactors 			= [AutoCostAfstand,AutoCostTijd,0,0]
-  traffic.odMatrix				= [Totaal,Auto,t,103]
-  traffic.load					= [Totaal,Auto,t,103,Va,20]
-  traffic.preLoad					= [Totaal,Vracht,t,Usercat,Pae,1]
-  traffic.numberOfThreads			= aantalThreads
+  traffic.odMatrix			= [Totaal,Auto,t,103]
+  traffic.load				= [Totaal,Auto,t,103,Va,20]
+  traffic.preLoad			= [Totaal,Vracht,t,Usercat,Pae,1]
+  traffic.numberOfThreads		= aantalThreads
 
   ################################################################################################
   traffic.skimMatrix = [Totaal,Auto,t,3,[Cost,Afstand,Tijd],1]
@@ -87,10 +87,10 @@ end
 
 if toedelenAutoRdAon
   writeln "   * personenauto's"
-  traffic 						= OtTraffic.new
-  traffic.load 					= [Totaal,Auto,Restdag,101,151,1]
+  traffic 				= OtTraffic.new
+  traffic.load 				= [Totaal,Auto,Restdag,101,151,1]
   traffic.routeFactors 			= [AutoCostAfstand,AutoCostTijd,0,0]
-  traffic.numberOfThreads			= aantalThreads
+  traffic.numberOfThreads		= aantalThreads
   traffic.execute
 end
 
@@ -110,16 +110,16 @@ if toedelenAutoRdVa
        [[40,41,64,66],[2.0,4.0]], \
        [[51,67],[4.0,4.0]], \
        [[52,53,55..58],[0.0,4.0]]]
-  traffic.network					= [Auto,Restdag]
+  traffic.network			= [Auto,Restdag]
   traffic.routeFactors 			= [AutoCostAfstand,AutoCostTijd]       
-  traffic.odMatrix				= [Totaal,Auto,Restdag,101]
-  traffic.pcuFactor 				= 1.0/RD_factor_auto
-  traffic.load					= [Totaal,Auto,Restdag,141,Va,20]
-  traffic.preLoad					= [[Totaal,Vracht,Restdag,Usercat,Pae,1],(1.0/RD_factor_vracht)]
-  traffic.numberOfThreads			= aantalThreads
+  traffic.odMatrix			= [Totaal,Auto,Restdag,101]
+  traffic.pcuFactor 			= 1.0/RD_factor_auto
+  traffic.load				= [Totaal,Auto,Restdag,141,Va,20]
+  traffic.preLoad			= [[Totaal,Vracht,Restdag,Usercat,Pae,1],(1.0/RD_factor_vracht)]
+  traffic.numberOfThreads		= aantalThreads
 
   ################################################################################################
-  traffic.skimMatrix = [Totaal,Auto,1,3,[Cost,Afstand,Tijd],1]
+  traffic.skimMatrix = [Totaal,Auto,1,3,[Cost,Afstand,Tijd],1]   # NOG check of dit goed is !!
   traffic.skimFactors = [1.0,1.0,60.0]
   ################################################################################################	
 
@@ -136,15 +136,15 @@ end
 if toedelenOV 
   for t in [1,2,3]
   transit=OtTransit.new
-  transit.network 				= [Ov,t]
-  transit.logitParameters			= [0.5,0.1,0.1]
-  transit.load					= [Totaal,Ov,t,Usercat,Aon,1]
+  transit.network 			= [Ov,t]
+  transit.logitParameters		= [0.5,0.1,0.1]
+  transit.load				= [Totaal,Ov,t,Usercat,Aon,1]
   transit.routeFactors			= [[0,1,60,60,60,1]]
-  transit.minProbability 			= [0.02,0.02]
-  transit.minFind 				= [[Lopen,1]]                   
+  transit.minProbability 		= [0.02,0.02]
+  transit.minFind 			= [[Lopen,1]]                   
   transit.searchRadius 			= [[Lopen,2.00]]       
   transit.maxInterchanges 		= 5
-  transit.numberOfThreads			= aantalThreads
+  transit.numberOfThreads		= aantalThreads
 
 
   ####################################################################
@@ -158,7 +158,7 @@ end
 if toedelenFiets
   for t in [1,2,3]
   writeln "   * fiets"
-  traffic 						= OtTraffic.new
+  traffic 					= OtTraffic.new
   traffic.load 					= [Totaal,Fiets,t,Usercat,Aon,1]
   traffic.numberOfThreads			= aantalThreads
 
