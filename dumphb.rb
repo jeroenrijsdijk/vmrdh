@@ -5,7 +5,7 @@
 # 
 # dit script schrijft herkomst en bestemming centroid met aantal ritten
 # auto, vracht, openbaar vervoer, fiets
-#
+# kleine  waarden worden  niet weggeschreven, om de grootte te beperken
 #
 # RVMK3 
 # $nzones=5791
