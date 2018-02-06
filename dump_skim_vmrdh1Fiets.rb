@@ -24,7 +24,7 @@ skimmat=OtSkimCube.open()
 aantalzonesh=[6180,6257,5333,6567]   
 
 # alle bestemmingen
-aantalzonesb=[1..$nzones]
+aantalzonesb=[1..$nzones].unreduce
 
 
 t=2 #  reken alleen voor de restdag
