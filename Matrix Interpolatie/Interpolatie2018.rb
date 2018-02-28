@@ -27,7 +27,7 @@ writeln "Auto..."
 
 am1=mc16.get([1,2,1,103])  #auto, os
 am2=mc16.get([1,2,2,101])  #auto, rd
-am2=mc16.get([1,2,3,103])  #auto, as
+am3=mc16.get([1,2,3,103])  #auto, as
 
 bm1=mc23.get([1,2,1,103])
 bm2=mc23.get([1,2,2,101])
