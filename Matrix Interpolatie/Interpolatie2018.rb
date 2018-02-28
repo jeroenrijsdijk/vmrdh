@@ -1,19 +1,23 @@
-
-
 ##############################################
-### IN PROGRESS !!!!!1!!!11!!!!
+# MATRIX INTERPOLATIE 2016 - > 2023
+#
+# TUSSENLIGGENDE JAREN VMRDH1.0 
+#  VIA LINEARE INTERPOLATIE
 ##############################################
 
 writeln "matrix interpolatie"
 
+# open de matrixcubes van 2016 en 2023
 mc16 = OtMatrixCube.open("2016_SMC")
 mc23 = OtMatrixCube.open("2023_SMC")
 
-# kies tussen Create op Open
-mc18 = OtMatrixCube.create("2018_SMC")
-#mc18 = OtMatrixCube.open("")
+# kies voor 2018 tussen Create en Open
+  mc18 = OtMatrixCube.create("2018_SMC")
+# mc18 = OtMatrixCube.open("")
 
-factor = 1-((2023-2018)/(2023-2016))  # 2018 ligt op   2/7 van de periode 2016-2023
+# 2018 ligt op   2/7 van de periode 2016-2023
+# daarom 2/7 van het verschil tussen '16 en '23 
+factor = 1-((2023-2018)/(2023-2016))  
 
 ##############################################
 # Auto
