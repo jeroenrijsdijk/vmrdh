@@ -11,9 +11,13 @@ writeln "matrix interpolatie"
 mc16 = OtMatrixCube.open("2016_SMC")
 mc23 = OtMatrixCube.open("2023_SMC")
 
-# kies voor 2020 tussen Create en Open
-mc20 = OtMatrixCube.create("2020_SMC")
-# mc20 = OtMatrixCube.open("2020_SMC")
+begin 
+  mc20 = OtMatrixCube.create("2020_SMC")
+rescue
+  mc20 = OtMatrixCube.open("2020_SMC")
+end
+
+
 
 # 2020 ligt op   */7 van de periode 2016-2023
 # daarom */7 van het verschil tussen '16 en '23 
@@ -74,6 +78,22 @@ bm3=mc23.get([1,4,3,1])
 mc20[1,4,1,1]= am1+ (bm1-am1)*factor
 mc20[1,4,2,1]= am2+ (bm2-am2)*factor
 mc20[1,4,3,1]= am3+ (bm3-am3)*factor
+
+[83,84,85,86].each { |u|
+
+  am1=mc16.get([1,4,1,u])
+  am2=mc16.get([1,4,2,u])
+  am3=mc16.get([1,4,3,u])
+
+  bm1=mc23.get([1,4,1,u])
+  bm2=mc23.get([1,4,2,u])
+  bm3=mc23.get([1,4,3,u])
+
+  mc20[1,4,1,u]= am1+ (bm1-am1)*factor
+  mc20[1,4,2,u]= am2+ (bm2-am2)*factor
+  mc20[1,4,3,u]= am3+ (bm3-am3)*factor
+
+}
 
 ##############################################
 # FIETS
