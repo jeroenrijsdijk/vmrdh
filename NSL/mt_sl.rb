@@ -37,19 +37,20 @@ rescue
 end
 
 
+
 #####################
-# New matrix 
+# New matrix voor NSL run tweede halfjaar 2017:: 
 #####################
 mats.each_index {  |i|
   print(*mats[i].join("-"),"\n")
   
-  # smc=mc[*mats[i]]   # is the smc matrix
-  # slm=ms[*slmats[i]] # is the selected link matrix  
-  # substract half of the Selected Link Matrix
-  # like smc = smc - slm.multiply!(0.5)
-  # then put it into the new cube
+  smc=mc[*mats[i]]   # is the smc matrix
+  slm=ms[*slmats[i]] # is the selected link matrix  
   
-  mcn[*mats[i]]=mc[*mats[i]]-ms[*slmats[i]].multiply!(0.5)  
+  # substract half of the Selected Link Matrix
+  # then put it into the new cube  
+  smc=smc-slm.multiply!(0.3333)  
+  mcn[*mats[i]]= smc
 }
 
 print "Einde script.\n"
