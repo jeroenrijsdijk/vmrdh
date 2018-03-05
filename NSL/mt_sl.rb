@@ -12,13 +12,21 @@
 # pmturi's for AUTO and VRACHT
 #####################
 mats=[[1,3,1,1],[1,3,2,1],[1,3,3,1],[1,2,1,103],[1,2,2,101],[1,2,3,103]]
-slmats=[  
+slmats41=[  
 [1,3,1,41,10,1], \
 [1,3,2,41,10,1], \
 [1,3,3,41,10,1], \
 [1,2,1,41,11,20], \
 [1,2,2,41,11,20], \
 [1,2,3,41,11,20]]
+
+slmats42=[  
+[1,3,1,42,10,1], \
+[1,3,2,42,10,1], \
+[1,3,3,42,10,1], \
+[1,2,1,42,11,20], \
+[1,2,2,42,11,20], \
+[1,2,3,42,11,20]]
 
 #####################
 # open the cubes
@@ -37,20 +45,34 @@ rescue
 end
 
 
-
 #####################
 # New matrix voor NSL run tweede halfjaar 2017:: 
 #####################
 mats.each_index {  |i|
   print(*mats[i].join("-"),"\n")
   
-  smc=mc[*mats[i]]   # is the smc matrix
-  slm=ms[*slmats[i]] # is the selected link matrix  
+  smc  =mc[*mats[i]]   # is the smc matrix
+  
+  slm41=ms[*slmats41[i]] # is the selected link matrix    #o/1 matrix
+  slm42=ms[*slmats42[i]] # is the selected link matrix    #o/1 matrix
+  
+  
+  
+  #mc  is 2017_cms matrix
+  
+  mt41mat= smc.multiply(slm41)
+  er42mat= smc.multiply(slm42)
+  
+  writeln("MT ",mt41mat.sum)
+  writeln("Er ",er42mat.sum)
   
   # substract half of the Selected Link Matrix
   # then put it into the new cube  
-  smc=smc-slm.multiply!(0.5)  
-  mcn[*mats[i]]= smc
+  
+  smcn= smc- mt41mat.multiply!(0.5)- er42mat.multiply!(0.25)
+  
+  mcn[*mats[i]]= smcn
 }
 
 print "Einde script.\n"
+
