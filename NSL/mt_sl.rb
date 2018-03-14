@@ -69,7 +69,7 @@ mats.each_index {  |i|
   # substract half of the Selected Link Matrix
   # then put it into the new cube  
   
-  smcn= smc- mt41mat.multiply!(0.5)- er42mat.multiply!(0.25)
+  smcn= smc- mt41mat.multiply!(0.20)- er42mat.multiply!(0.05)
   
   mcn[*mats[i]]= smcn
 }
