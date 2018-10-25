@@ -66,8 +66,9 @@ mats.each_index {  |i|
   writeln("MT ",mt41mat.sum)
   writeln("Er ",er42mat.sum)
   
-  # substract half of the Selected Link Matrix
+  # substract a part of of the Selected Link Matrix,
   # then put it into the new cube  
+  # = Vraaguitval nav sluiting tunnel
   
   smcn= smc- mt41mat.multiply!(0.20)- er42mat.multiply!(0.05)
   
