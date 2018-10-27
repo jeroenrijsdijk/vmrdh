@@ -1,9 +1,8 @@
 
 #########################################################
-# JRI voor v-mrdh 1.0 en later
+# JRI voor v-mrdh 1.0 en later (Omnitrans)
 # 
-# OtGrowthfactor -  scriopt voor ophoging Ak + Vt 
-# en daarna Fratar
+# OtGrowthfactor -  script voor ophoging Aankomsten en Vertrekken via Fratar
 #
 # let op CONCEPT, NOG NIET GETEST!
 #
@@ -17,10 +16,9 @@ def iter(pmtu, todocols, todorows)
   ################################
 
   puts("Open Matrices... ")
-  # open de matrix
   my_matrix_cube = OtMatrixCube.new('2016_SMC')
 
-  # open de nieuwe matrix
+  # maak of open de nieuwe, opgehoogde matrix
   begin
     my_newmatrix_cube = OtMatrixCube.create('smc2016kopie')
   rescue
@@ -47,18 +45,15 @@ def iter(pmtu, todocols, todorows)
   }
 
   puts("Run...")
-  my_growth_matrix = my_run1.execute(my_matrix_cube[*pmtu], rows1, cols1)
-  my_newmatrix_cube[*pmtu] = my_growth_matrix
-  
-  ####################################################################
+  my_newmatrix_cube[*pmtu] = my_run1.execute(my_matrix_cube[*pmtu], rows1, cols1)
   
   writeln("Matrix [", pmtu.join(","), "] aangepast.")
-
 end
 
 
 # START #
 
+# Dit zijn de PMTURIs van de matrices in VMRDH10
 AutoOS = [1,2,1,103]
 AutoRD = [1,2,2,101]
 AutoAS = [1,2,3,103]
@@ -66,12 +61,16 @@ VrOS   = [1,3,1,1]
 VrRD   = [1,3,2,1]
 VrAS   = [1,3,3,1]
 
+
 # Voorbeeld: 
-#   r = iter(AutoOS, [[134, 123], .. ], [[134, 234], .. ]
-# In zone 134 
-#  mode=Auto, tijd=ochtendspits 
-#   234 auto's komen aan (aankomsten, coltotal), en 
-#   123 auto's gaan weg (vertrekken, rowtotals). 
+#
+#  aanroepen met  'iter(pmturi_matrix,  nieuwe kolomtotalen, nieuwe rijtotalen)'
+#
+#   result = iter(AutoOS, [[134, 123], .. ], [[134, 234], .. ]
+#
+# In zone 134, mode=Auto, tijd=ochtendspits 
+#   123 auto's komen aan (aankomsten, coltotal), en 
+#   234 auto's gaan weg (vertrekken, rowtotals). 
 #
 r = iter(AutoOS, [[134, 123],[135, 456],[136, 789]], [[134, 234],[135, 456],[136, 789]])
 
